@@ -3,9 +3,22 @@ version: "3.7"
 services:
     app:
         build: .
+        container_name: app_container
         command: npm start
         ports:
             - "3000:3000"
         volumes:
             - .:/usr/app
             - /usr/app/node_modules
+        depends_on: 
+            - db
+        links:
+            - db
+
+    db:
+        image: 'mongo'
+        container_name: mongo_container
+        ports:
+          - '27017:27017'
+        volumes:
+          - /data/db

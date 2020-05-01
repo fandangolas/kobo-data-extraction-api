@@ -1,5 +1,5 @@
 {
-  "name": "teste",
+  "name": "node-app-with-mongo",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nicuknx/teste.git"
+    "url": "git+https://github.com/nicuknx/node-app-with-mongo.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/nicuknx/teste/issues"
+    "url": "https://github.com/nicuknx/node-app-with-mongo/issues"
   },
-  "homepage": "https://github.com/nicuknx/teste#readme",
+  "homepage": "https://github.com/nicuknx/node-app-with-mongo#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
     "express": "^4.17.1",

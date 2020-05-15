@@ -1,11 +1,11 @@
-const express = require('express')
-const bodyParser = require('body-parser')
-const mongoose = require('mongoose')
+const express = require('express');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
-const PORT = 3000
-const HOST = '0.0.0.0'
+const PORT = 3000;
+const HOST = '0.0.0.0';
 
-const app = express()
+const app = express();
 
 mongoose
   .connect('mongodb://db:27017/crud-node-mongo-docker', {
@@ -19,10 +19,10 @@ mongoose
   });
 
 
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
-    res.send('Hello World!')
-})
+    res.send('Hello World!');
+});
 
-app.listen(PORT, HOST)
+app.listen(PORT, HOST);

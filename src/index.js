@@ -1,28 +1,27 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
+import dotenv from "dotenv";
+import express from "express";
+import bodyParser from "body-parser";
+import mongoose from "mongoose";
+import router from "./routes/hello";
 
-const PORT = 3000;
-const HOST = '0.0.0.0';
+dotenv.config();
 
 const app = express();
 
-mongoose
-  .connect('mongodb://db:27017/crud-node-mongo-docker', {
-    useNewUrlParser: true
-  })
-  .then(result => {
-    console.log('MongoDB Conectado');
-  })
-  .catch(error => {
-    console.log(error);
-  });
+// mongoose
+//   .connect('mongodb://db:27017/crud-node-mongo-docker', {
+//     useNewUrlParser: true
+//   })
+//   .then(result => {
+//     console.log('MongoDB Conectado');
+//   })
+//   .catch(error => {
+//     console.log(error);
+//   });
 
 
 app.use(bodyParser.json());
 
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-});
+app.use(router);
 
-app.listen(PORT, HOST);
+app.listen(process.env.PORT, process.env.HOST);

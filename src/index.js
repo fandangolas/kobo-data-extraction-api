@@ -1,10 +1,10 @@
-import dotenv from "dotenv";
 import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import router from "./routes/auth";
+import configureContainer from "./app/configureContainer";
 
-dotenv.config();
+const container = configureContainer();
 
 const app = express();
 

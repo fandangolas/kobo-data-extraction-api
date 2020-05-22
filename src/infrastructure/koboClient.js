@@ -1,18 +1,16 @@
 import Axios from "axios";
 
-const koboClient = (baseUrl, user, pass) => {
+const koboClient = ({ koboUser, koboPassword, koboBaseUrl }) => {
   return {
     getToken: async () => {
-      const { data } = await Axios.get(`${baseUrl}/token/?format=json`, {
+      const { data } = await Axios.get(`${koboBaseUrl}/token/?format=json`, {
         auth: {
-          username: user,
-          password: pass
+          username: koboUser,
+          password: koboPassword
         }
       }).catch(err => {
         console.log(err);
       });
-
-      console.log(data);
 
       return data.token;
     }

@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
-import router from "./routes/hello";
+import router from "./routes/auth";
 
 dotenv.config();
 

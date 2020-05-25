@@ -1,9 +1,5 @@
 import { createContainer, asValue, asFunction } from "awilix";
-import dotenv from "dotenv";
 import koboClient from "../infrastructure/koboClient";
-import authController from "../controllers/authController";
-
-dotenv.config();
 
 const configureContainer = () => {
   const container = createContainer();

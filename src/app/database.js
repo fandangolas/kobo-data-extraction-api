@@ -1,16 +1,15 @@
 import { MongoClient } from "mongodb";
 
-const mongoDb = () => {
+const mongoDb = ({ mongoConnectionString }) => {
   let _db;
 
-  const connect = callback => {
-    const uri = process.env.MONGO_DB_CONNECTIONSTRING;
+  const configure = callback => {
     const options = {
       useNewUrlParser: true,
       useUnifiedTopology: true
     };
   
-    MongoClient.connect(uri,options)
+    MongoClient.connect(mongoConnectionString, options)
       .then(client => {
         _db = client.db();
         callback(client);
@@ -29,7 +28,7 @@ const mongoDb = () => {
   };
 
   return {
-    connect,
+    configure,
     getDb
   };
 };

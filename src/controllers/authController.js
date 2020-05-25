@@ -1,10 +1,11 @@
-import configureContainer from "../app/configureContainer";
-const container = configureContainer();
+const authController = ({ koboClient }) => {
+  const getAuthToken = async (req, res, next) => {  
+    const token = await koboClient.getToken();
+  
+    res.send(`token: ${token}`);
+  };
 
-exports.getAuthToken = async (req, res, next) => {
-  const client = container.resolve('koboClient');
+  return { getAuthToken };
+}
 
-  const token = await client.getToken();
-
-  res.send(`token: ${token}`);
-};
+export default authController;

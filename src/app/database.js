@@ -3,20 +3,21 @@ import { MongoClient } from "mongodb";
 const mongoDb = ({ mongoConnectionString }) => {
   let _db;
 
-  const configure = callback => {
+  const configure = async () => {
     const options = {
       useNewUrlParser: true,
       useUnifiedTopology: true
     };
 
-    MongoClient.connect(mongoConnectionString, options)
-      .then(client => {
-        _db = client.db();
-        callback(client);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    try {
+      const client = await MongoClient.connect(mongoConnectionString, options);
+
+      _db = client.db();
+
+      return client;
+    } catch (error) {
+      console.log(err);
+    }
   };
 
   const getDb = () => {

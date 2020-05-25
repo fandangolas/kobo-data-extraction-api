@@ -11,7 +11,7 @@ const configureContainer = () => {
     //Register MongoDB
     .register({
       mongoConnectionString: asValue(process.env.MONGO_DB_CONNECTIONSTRING),
-      db: asFunction(mongoDb)
+      db: asFunction(mongoDb).singleton()
     })
     //Register Kobo-API client 
     .register({

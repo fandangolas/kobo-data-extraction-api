@@ -8,7 +8,7 @@ const container = configureContainer();
 
 const mongoDb = container.resolve('db');
 
-const authRouter = container.resolve('authRouter')
+const authRouter = container.resolve('authRouter');
 
 const app = express();
 

@@ -8,7 +8,7 @@ const mongoDb = ({ mongoConnectionString }) => {
       useNewUrlParser: true,
       useUnifiedTopology: true
     };
-  
+
     MongoClient.connect(mongoConnectionString, options)
       .then(client => {
         _db = client.db();

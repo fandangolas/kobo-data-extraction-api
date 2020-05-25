@@ -1,7 +1,7 @@
 const authController = ({ koboClient }) => {
-  const getAuthToken = async (req, res, next) => {  
+  const getAuthToken = async (req, res, next) => {
     const token = await koboClient.getToken();
-  
+
     res.send(`token: ${token}`);
   };
 

@@ -1,6 +1,6 @@
 import { MongoClient } from "mongodb";
 
-const mongoDb = ({ mongoConnectionString }) => {
+const mongoDb = ({ config }) => {
   let _db;
 
   const configure = async () => {
@@ -10,12 +10,12 @@ const mongoDb = ({ mongoConnectionString }) => {
     };
 
     try {
-      const client = await MongoClient.connect(mongoConnectionString, options);
+      const client = await MongoClient.connect(config.mongoConnectionString, options);
 
       _db = client.db();
 
       return client;
-    } catch (error) {
+    } catch (err) {
       console.log(err);
     }
   };

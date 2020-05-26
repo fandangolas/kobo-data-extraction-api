@@ -3,21 +3,22 @@ import authRouter from "../routes/auth";
 import { createContainer, asValue, asFunction } from "awilix";
 import koboClient from "../infrastructure/koboClient";
 import mongoDb from "./database";
+import envConfigs from "../../config/envConfigs";
 
 const configureContainer = () => {
   const container = createContainer();
 
   container
-    //Register MongoDB
+    //Register environment variables
     .register({
-      mongoConnectionString: asValue(process.env.MONGO_DB_CONNECTIONSTRING),
+      config: asValue(envConfigs)
+    })
+    //Register MongoDB connection
+    .register({
       db: asFunction(mongoDb).singleton()
     })
     //Register Kobo-API client 
     .register({
-      koboUser: asValue(process.env.KOBO_USER),
-      koboPassword: asValue(process.env.KOBO_PASSWORD),
-      koboBaseUrl: asValue(process.env.KOBO_BASEURL),
       koboClient: asFunction(koboClient).singleton()
     })
     //Register Controllers

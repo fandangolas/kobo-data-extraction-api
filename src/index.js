@@ -1,9 +1,7 @@
 import bodyParser from "body-parser";
-import dotenv from "dotenv";
 import express from "express";
 import configureContainer from "./app/configureContainer";
 
-dotenv.config();
 const container = configureContainer();
 
 const mongoDb = container.resolve('db');

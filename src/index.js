@@ -5,14 +5,15 @@ import configureContainer from "./app/configureContainer";
 const container = configureContainer();
 
 const mongoDb = container.resolve('db');
-
-const authRouter = container.resolve('authRouter');
+const assetsRouter = container.resolve('assetsRouter');
+const authMiddleware = container.resolve('authMiddleware');
 
 const app = express();
 
-app.use(bodyParser.json());
+app.use('/', authMiddleware.authenticate);
 
-app.use(authRouter);
+app.use(bodyParser.json());
+app.use(assetsRouter);
 
 mongoDb.configure()
   .then(client => {

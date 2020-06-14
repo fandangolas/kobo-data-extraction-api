@@ -1,6 +1,6 @@
-import authController from "../controllers/authController";
+import assetsController from "../controllers/assetsController";
 import authMiddleware from "../middlewares/authMiddleware";
-import authRouter from "../routes/auth";
+import assetsRouter from "../routes/assets";
 import { createContainer, asValue, asFunction } from "awilix";
 import koboClient from "../infrastructure/koboClient";
 import mongoDb from "./database";
@@ -28,11 +28,11 @@ const configureContainer = () => {
     })
     //Register Controllers
     .register({
-      authController: asFunction(authController)
+      assetsController: asFunction(assetsController)
     })
     //Register Routes
     .register({
-      authRouter: asFunction(authRouter)
+      assetsRouter: asFunction(assetsRouter)
     });
 
   return container;

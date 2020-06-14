@@ -10,9 +10,8 @@ const authMiddleware = container.resolve('authMiddleware');
 
 const app = express();
 
-app.use('/', authMiddleware.authenticate);
-
 app.use(bodyParser.json());
+app.use('/kobo', authMiddleware.authenticate);
 app.use(assetsRouter);
 
 mongoDb.configure()

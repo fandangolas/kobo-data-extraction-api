@@ -2,6 +2,7 @@ import Axios from "axios";
 
 const koboClient = ({ config }) => {
   return {
+
     getToken: async () => {
       try {
         const { data } = await Axios.get(`${config.koboBaseUrl}/token/?format=json`, {
@@ -13,10 +14,27 @@ const koboClient = ({ config }) => {
 
         return data.token;
       }
-      catch {
-        console.log(err);
+      catch (error) {
+        console.log(error);
+      }
+    },
+
+    getAssets: async (token) => {
+      try {
+        const { data } = await Axios.get(
+          `${config.koboBaseUrl}/api/v2/assets/?format=json`,
+          {
+            headers: {'Authorization': `Token ${token}`
+          }
+        });
+
+        return data;
+      }
+      catch (error) {
+        console.log(error);
       }
     }
+
   };
 };
 

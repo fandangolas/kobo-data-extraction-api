@@ -33,7 +33,23 @@ const koboClient = ({ config }) => {
       catch (error) {
         console.log(error);
       }
-    }
+    },
+
+    getData: async (uid, token) => {
+      try {
+        const { data } = await Axios.get(
+          `${config.koboBaseUrl}/api/v2/assets/${uid}/data/?format=json`,
+          {
+            headers: {'Authorization': `Token ${token}`
+          }
+        });
+
+        return data;
+      }
+      catch (error) {
+        console.log(error);
+      }
+    },
 
   };
 };

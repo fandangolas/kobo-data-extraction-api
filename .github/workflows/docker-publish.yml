@@ -14,8 +14,13 @@ on:
   pull_request:
 
 env:
-  # TODO: Change variable to your image's name.
   IMAGE_NAME: kobo-data-extraction-api-img
+  PORT: ${{ secrets.PORT }}
+  HOST: ${{ secrets.HOST }}
+  KOBO_BASEURL: ${{ secrets.KOBO_BASEURL }}
+  KOBO_USER: ${{ secrets.KOBO_USER }}
+  KOBO_PASSWORD: ${{ secrets.KOBO_PASSWORD }}
+  MONGO_DB_CONNECTIONSTRING: ${{ secrets.MONGO_DB_CONNECTIONSTRING }}
 
 jobs:
   # Run tests.

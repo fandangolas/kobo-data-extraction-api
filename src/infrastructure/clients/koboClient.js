@@ -21,14 +21,14 @@ const koboClient = ({ config }) => {
 
     getAssets: async (token) => {
       try {
-        const { data } = await Axios.get(
+        const { data, status } = await Axios.get(
           `${config.koboBaseUrl}/api/v2/assets/?format=json`,
           {
             headers: {'Authorization': `Token ${token}`
           }
         });
 
-        return data;
+        return { data, status };
       }
       catch (error) {
         console.log(error);
@@ -37,14 +37,14 @@ const koboClient = ({ config }) => {
 
     getAsset: async (token, uid) => {
       try {
-        const { data } = await Axios.get(
+        const { data, status } = await Axios.get(
           `${config.koboBaseUrl}/api/v2/assets/${uid}/?format=json`,
           {
             headers: {'Authorization': `Token ${token}`
           }
         });
 
-        return data;
+        return { data, status };
       }
       catch (error) {
         console.log(error);
@@ -53,14 +53,14 @@ const koboClient = ({ config }) => {
 
     getData: async (token, uid) => {
       try {
-        const { data } = await Axios.get(
+        const { data, status } = await Axios.get(
           `${config.koboBaseUrl}/api/v2/assets/${uid}/data/?format=json`,
           {
             headers: {'Authorization': `Token ${token}`
           }
         });
 
-        return data;
+        return { data, status };
       }
       catch (error) {
         console.log(error);

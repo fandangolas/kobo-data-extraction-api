@@ -8,16 +8,31 @@ const assetsController = ({ koboClient, assetsRepository, assetsDataRepository }
 
   const registerAsset = async (req, res) => {
     const uid = req.params.uid;
+    const authToken = req.koboToken;
 
-    const asset = await koboClient.getAsset(req.koboToken, uid);
-    const assetData = await koboClient.getData(req.koboToken, uid);
+    const {
+      data: asset,
+      status: assetStatus
+    } = await koboClient.getAsset(authToken, uid);
 
-    //const { insertedId: assetInsertionId } = await assetsRepository.createAsset({ asset: "assets repository test 6"});
-    const { insertedId: assetDataInsertionId } = await assetsDataRepository.createAssetData({ data: assetData });
+    const {
+      data: assetData,
+      status: assetDataStatus
+    } = await koboClient.getData(authToken, uid);
+
+    const {
+      insertedId: assetInsertionId
+    } = await assetsRepository.createAsset({ asset });
+
+    const {
+      insertedId: assetDataInsertionId
+    } = await assetsDataRepository.createAssetData({ data: assetData });
 
     res.status(202).json({
-      //assetInsertionId,
-      assetDataInsertionId
+      assetInsertionId,
+      assetDataInsertionId,
+      asset,
+      assetData
     });
   };
 

@@ -20,4 +20,3 @@
 * (GET) List all the assets - `/kobo/assets`
 
 * (POST) Persist an specific asset - `/kobo/assets/{uid}`
-

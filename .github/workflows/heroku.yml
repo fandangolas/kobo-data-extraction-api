@@ -9,16 +9,6 @@ on:
     branches: [ master, develop ]
   pull_request:
     branches: [ master ]
-    
-    
-env:
-  IMAGE_NAME: kobo-data-extraction-api-img
-  PORT: ${{ secrets.PORT }}
-  HOST: ${{ secrets.HOST }}
-  KOBO_BASEURL: ${{ secrets.KOBO_BASEURL }}
-  KOBO_USER: ${{ secrets.KOBO_USER }}
-  KOBO_PASSWORD: ${{ secrets.KOBO_PASSWORD }}
-  MONGO_DB_CONNECTIONSTRING: ${{ secrets.MONGO_DB_CONNECTIONSTRING }}
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -44,4 +34,10 @@ jobs:
     - name: Release
       env:
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        PORT: ${{ secrets.PORT }}
+        HOST: ${{ secrets.HOST }}
+        KOBO_BASEURL: ${{ secrets.KOBO_BASEURL }}
+        KOBO_USER: ${{ secrets.KOBO_USER }}
+        KOBO_PASSWORD: ${{ secrets.KOBO_PASSWORD }}
+        MONGO_DB_CONNECTIONSTRING: ${{ secrets.MONGO_DB_CONNECTIONSTRING }}
       run: heroku container:release -a ${{ secrets.HEROKU_APP_NAME }} web 

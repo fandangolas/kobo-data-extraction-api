@@ -11,28 +11,40 @@ const assetsController = ({ koboClient, assetsRepository, assetsDataRepository }
     const authToken = req.koboToken;
 
     const {
-      data: asset,
-      status: assetStatus
+      data: asset
     } = await koboClient.getAsset(authToken, uid);
 
     const {
-      data: assetData,
-      status: assetDataStatus
+      data: assetData
     } = await koboClient.getData(authToken, uid);
 
-    const {
-      insertedId: assetInsertionId
-    } = await assetsRepository.createAsset({ asset });
+    const { content, ...assetProps } = asset;
 
-    const {
-      insertedId: assetDataInsertionId
-    } = await assetsDataRepository.createAssetData({ data: assetData });
+    const { survey, ...contentProps } = content;
+
+    const newSurvey = [];
+
+    survey.forEach(survey => {
+      const { $autoname, $kuid, ...otherProps } = survey;
+
+      const formattedSurvey = { autoname: $autoname, kuid: $kuid, ...otherProps };
+
+      newSurvey.push(formattedSurvey);
+    });
+
+    const newContent = { ...contentProps, survey: newSurvey };
+
+    const newAsset = { ...assetProps, content: newContent };
+
+    const { insertedId: assetInsertionId } = await assetsRepository.createAsset({ newAsset });
+
+    const { insertedId: assetDataInsertionId } = await assetsDataRepository.createAssetData({ data: assetData });
 
     res.status(202).json({
       assetInsertionId,
       assetDataInsertionId,
-      asset,
-      assetData
+      newAsset,
+      asset
     });
   };
 

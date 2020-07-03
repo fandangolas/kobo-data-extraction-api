@@ -1,5 +1,9 @@
-const assetsController = ({ koboClient, assetsRepository, assetsDataRepository }) => {
-
+const assetsController = ({
+  assetsDataRepository,
+  assetsRepository,
+  koboClient,
+  koboDataExtractionService
+}) => {
   const getAssets = async (req, res) => {
     const data = await koboClient.getAssets(req.koboToken);
 
@@ -10,41 +14,20 @@ const assetsController = ({ koboClient, assetsRepository, assetsDataRepository }
     const uid = req.params.uid;
     const authToken = req.koboToken;
 
-    const {
-      data: asset
-    } = await koboClient.getAsset(authToken, uid);
+    const { asset, data } = await koboDataExtractionService.extractAsset(authToken, uid);
 
-    const {
-      data: assetData
-    } = await koboClient.getData(authToken, uid);
+    //TODO: Do these repository operations in a transaction scope
+    const { insertedId: assetInsertionId } = await assetsRepository
+      .createAsset({ asset });
 
-    const { content, ...assetProps } = asset;
-
-    const { survey, ...contentProps } = content;
-
-    const newSurvey = [];
-
-    survey.forEach(survey => {
-      const { $autoname, $kuid, ...otherProps } = survey;
-
-      const formattedSurvey = { autoname: $autoname, kuid: $kuid, ...otherProps };
-
-      newSurvey.push(formattedSurvey);
-    });
-
-    const newContent = { ...contentProps, survey: newSurvey };
-
-    const newAsset = { ...assetProps, content: newContent };
-
-    const { insertedId: assetInsertionId } = await assetsRepository.createAsset({ newAsset });
-
-    const { insertedId: assetDataInsertionId } = await assetsDataRepository.createAssetData({ data: assetData });
+    const { insertedId: assetDataInsertionId } = await assetsDataRepository
+      .createAssetData({ data });
 
     res.status(202).json({
       assetInsertionId,
       assetDataInsertionId,
-      newAsset,
-      asset
+      asset,
+      data
     });
   };
 

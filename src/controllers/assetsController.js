@@ -1,9 +1,4 @@
-const assetsController = ({
-  assetsDataRepository,
-  assetsRepository,
-  koboClient,
-  koboDataExtractionService
-}) => {
+const assetsController = ({ assetService, koboClient, koboDataExtractionService }) => {
   const getAssets = async (req, res) => {
     const data = await koboClient.getAssets(req.koboToken);
 
@@ -11,21 +6,16 @@ const assetsController = ({
   };
 
   const registerAsset = async (req, res) => {
-    const uid = req.params.uid;
     const authToken = req.koboToken;
+    const assetUid = req.params.uid;
 
-    const { asset, data } = await koboDataExtractionService.extractAsset(authToken, uid);
+    const { asset, data } = await koboDataExtractionService.extractAsset(authToken, assetUid);
+    //TODO: Create logic to handle with 404 and make api more resilient. 
 
-    //TODO: Do these repository operations in a transaction scope
-    const { insertedId: assetInsertionId } = await assetsRepository
-      .createAsset({ asset });
-
-    const { insertedId: assetDataInsertionId } = await assetsDataRepository
-      .createAssetData({ data });
+    const insertionInfo = await assetService.saveAsset(asset, data);
 
     res.status(202).json({
-      assetInsertionId,
-      assetDataInsertionId,
+      ...insertionInfo,
       asset,
       data
     });

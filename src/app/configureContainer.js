@@ -8,6 +8,8 @@ import mongoDb from "../database";
 import assetsRepository from "../infrastructure/repositories/assetsRepository";
 import assetsDataRepository from "../infrastructure/repositories/assetsDataRepository";
 
+import koboDataExtractionService from "../services/koboDataExtractionService";
+
 import assetsController from "../controllers/assetsController";
 import authMiddleware from "../middlewares/authMiddleware";
 import assetsRouter from "../routes/assets";
@@ -38,6 +40,10 @@ const configureContainer = () => {
     .register({
       koboClient: asFunction(koboClient).singleton(),
     })
+    //Register Services
+    .register({ 
+      koboDataExtractionService: asFunction(koboDataExtractionService),
+     })
     //Register Middlewares
     .register({
       authMiddleware: asFunction(authMiddleware),

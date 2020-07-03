@@ -9,6 +9,16 @@ on:
     branches: [ master, develop ]
   pull_request:
     branches: [ master ]
+    
+    
+env:
+  IMAGE_NAME: kobo-data-extraction-api-img
+  PORT: ${{ secrets.PORT }}
+  HOST: ${{ secrets.HOST }}
+  KOBO_BASEURL: ${{ secrets.KOBO_BASEURL }}
+  KOBO_USER: ${{ secrets.KOBO_USER }}
+  KOBO_PASSWORD: ${{ secrets.KOBO_PASSWORD }}
+  MONGO_DB_CONNECTIONSTRING: ${{ secrets.MONGO_DB_CONNECTIONSTRING }}
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:

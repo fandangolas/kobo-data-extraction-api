@@ -23,7 +23,7 @@ jobs:
         run: heroku container:push -a ${{ secrets.HEROKU_APP_NAME }} web
 
       - name: Set environment variables
-        run: heroku config:set
+        run: heroku config:set -a ${{ secrets.HEROKU_APP_NAME }}
           PORT= ${{ secrets.PORT }}
           HOST= ${{ secrets.HOST }}
           KOBO_BASEURL= ${{ secrets.KOBO_BASEURL }}

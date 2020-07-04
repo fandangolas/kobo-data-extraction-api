@@ -2,6 +2,14 @@
 
 [In development]
 
+This project aims to extract data from KoBoToolbox and persist
+at MongoDb for future uses and visualisation of the data.
+
+In the future, it will also be constructed a front-end
+application where you can use kobo-data-extraction-api
+to find what projects from KoboCollect aren't in the database yet
+and you can download or persist then.
+
 # How to use
 
 1. Clone the git repository to your machine.

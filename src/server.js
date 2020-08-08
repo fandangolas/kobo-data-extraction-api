@@ -9,9 +9,8 @@ module.exports = ({ assetsRouter, authMiddleware, config }) => {
   app.use(assetsRouter);
 
   return {
-    start: () => new Promise(_ => {
+    start: () =>
       app.listen(config.port, config.host, () =>
         console.log(`Application running on port ${config.port}`))
-    })
-  }
-}
+  };
+};

@@ -1,11 +1,11 @@
 const app = ({ db, server }) => {
   return {
-    start: () => 
-      Promise
-        .resolve()
-        .then(db.configure)
-        .then(server.start)
+    start: async () => {
+      await db.configure();
+
+      server.start();
+    }
   }
 }
 
-module.exports = app;
+export default app;

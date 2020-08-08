@@ -3,9 +3,14 @@ import configureContainer from "./src/app/configureContainer";
 const container = configureContainer();
 const app = container.resolve('app');
 
-app
-  .start()
-  .catch((error) => {
+(async () => {
+  try {
+    await app.start();
+  }
+
+  catch (error) {
     console.log(error);
     process.exit();
-  });
+  }
+
+})();
